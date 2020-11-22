@@ -4,7 +4,11 @@ import firebase from 'firebase';
 
 import FormRow from '../components/FormRow';
 
-export default class LoginScreen extends React.Component {
+import { connect } from 'react-redux';
+
+import { tryLogin } from '../actions';
+
+class LoginScreen extends React.Component {
 
     constructor(props){
         super(props);
@@ -42,42 +46,7 @@ export default class LoginScreen extends React.Component {
         this.setState({isLoading: true, message: '' });
         const {mail, password} = this.state;
 
-        const loginUserSucess = user => {
-            this.setState({ message: "Sucesso!"});
-            this.props.navigation.navigate('Main');
-        }
-        const loginUserFailed = error => {
-            this.setState({message: this.getMessageByErrorCode( error.code ) });
-        }
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(mail, password)
-            .then(loginUserSucess)
-            .catch(error => {
-                if (error.code === 'auth/user-not-found'){
-                    Alert.alert(
-                        'Usuário não encontrado',
-                        'Deseja se cadastar?',
-                        [{
-                            text: 'Não',
-                        }, {
-                            text: 'Sim',
-                            onPress: () => {
-                                firebase
-                                    .auth()
-                                    .createUserWithEmailAndPassword(mail, password)
-                                    .then(loginUserSucess)
-                                    .catch(loginUserFailed)
-                            }
-                        }],
-                        { cancelable: false }    
-                    )
-                } else{
-                    loginUserFailed(error);
-                }
-                
-            })
-            .then(() => this.setState({isLoading: false}));
+        this.props.tryLogin({ mail, password });
     }
 
     getMessageByErrorCode(errorCode) {
@@ -150,4 +119,6 @@ const styles = StyleSheet.create({
         paddingRight: 5,
         paddingBottom: 10,
     }
-})
+});
+
+export default connect(null, { tryLogin })(LoginScreen)
