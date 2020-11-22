@@ -46,7 +46,20 @@ class LoginScreen extends React.Component {
         this.setState({isLoading: true, message: '' });
         const {mail, password} = this.state;
 
-        this.props.tryLogin({ mail, password });
+        this.props.tryLogin({ mail, password })
+            .then(user => {
+               if (user){
+                    return this.props.navigation.navigate('Main');
+               }
+               this.setState({
+                   isLoading: false,
+                    message: ''
+               });
+                
+            })
+            .catch(error => {
+                this.setState({isLoading: false, message: this.getMessageByErrorCode(error.code)});
+            });
     }
 
     getMessageByErrorCode(errorCode) {
