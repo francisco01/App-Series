@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, FlatList } from 'react-native';
 import SerieCard from '../components/serieCard';
 import series from '../../series.json';
+import AddSerieCard from '../components/AddSerieCard';
 
 
 const isEven = number => number % 2 === 0;
@@ -9,13 +10,16 @@ const isEven = number => number % 2 === 0;
 const SeriesPage = props => (
     <View>
         <FlatList
-            data={series}
+            data={[...series, {isLast: true}]}
             renderItem={({ item, index }) => (
-                <View>
-                   <SerieCard 
-                    serie={item}
-                    isFirstColumn={isEven(index)}
-                   />
+                item.isLast
+                ? <AddSerieCard isFirstColumn={isEven(index)}/>
+                :<View>
+                    <SerieCard 
+                        serie={item}
+                        isFirstColumn={isEven(index)}
+                        onNavigate={() => props.navigation.navigate('SerieDetail',{ serie: item })}
+                    />
                 </View>
             )}
             keyExtractor={item => item.id}
