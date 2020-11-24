@@ -13,7 +13,10 @@ const SeriesPage = props => (
             data={[...series, {isLast: true}]}
             renderItem={({ item, index }) => (
                 item.isLast
-                ? <AddSerieCard isFirstColumn={isEven(index)}/>
+                ? <AddSerieCard 
+                    isFirstColumn={isEven(index)}
+                    onNavigate={() => props.navigation.navigate('SerieForm')} 
+                />
                 :<View>
                     <SerieCard 
                         serie={item}
