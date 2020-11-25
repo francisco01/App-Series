@@ -59,10 +59,11 @@ class SerieFormPage extends React.Component{
                         <Picker
                             selectedValue={serieForm.gender}
                             onValueChange={ itemValue => setField('gender',itemValue)} >
-                            <Picker.Item label="Ação" value="acao" />
-                            <Picker.Item label="Comédia" value="comedia" />
-                            <Picker.Item label="Romance" value="romance" />
-                            <Picker.Item label="Terror" value="terror" />
+                            <Picker.Item label="Ação" value="Ação" />
+                            <Picker.Item label="Comédia" value="Comédia" />
+                            <Picker.Item label="Romance" value="Romance" />
+                            <Picker.Item label="Terror" value="Terror" />
+                            <Picker.Item label="Ficção cientifica" value="Ficção cientifica" />
                         </Picker>
                 </FormRow>
                 <FormRow>
