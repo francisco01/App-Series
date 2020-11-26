@@ -9,13 +9,18 @@ const SerieCard = ({ serie, isFirstColumn, onNavigate }) => (
         isFirstColumn ? styles.firstColumn : styles.lastColumn
     ]}>
         <View style={styles.card}>
-            <Image 
-                source={{
-                    uri: serie.img
-                }}
-                aspectRatio={1}
-                resizeMode="cover"
-            />
+            {
+                serie.img
+                    ?   <Image 
+                
+                            source={{
+                                uri: serie.img
+                            }}
+                            aspectRatio={1}
+                            resizeMode="cover"
+                        />
+                    : null    
+            }
             <View style={styles.cardTitleWrapper}>
                 <Text style={styles.cardTitle}>{serie.title}</Text>
             </View>
@@ -39,7 +44,7 @@ const styles = StyleSheet.create({
         
     },
     card:{
-        //flex: 1,
+        flex: 1,
         borderWidth: 1,
         //margin: 10,
         //flexGrow: 1,

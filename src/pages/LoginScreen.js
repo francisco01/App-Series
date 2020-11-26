@@ -49,7 +49,7 @@ class LoginScreen extends React.Component {
         this.props.tryLogin({ mail, password })
             .then(user => {
                if (user){
-                    return this.props.navigation.navigate('Main');
+                    return this.props.navigation.replace('Main');
                }
                this.setState({
                    isLoading: false,
