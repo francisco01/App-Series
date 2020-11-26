@@ -1,9 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, Button} from 'react-native';
+import { View, StyleSheet, Image, ScrollView, Button} from 'react-native';
 import Line from '../components/Line';
 import LongText from '../components/LongText';
 
+import { connect } from 'react-redux';
+import { deleteSerie } from '../actions';
+
 class SerieDetailPage extends React.Component {
+
     render () {
         const { navigation } = this.props;
         const { serie } = navigation.state.params;
@@ -24,11 +28,28 @@ class SerieDetailPage extends React.Component {
                 <Line label="Nota" content={serie.rate} />
                 <LongText label="Descrição" content={serie.description} />
 
-                <Button 
-                title="Editar"
-                onPress={() => {
-                    navigation.replace('SerieForm', { serieToEdit: serie });
-                }} />
+                <View style={styles.button}>
+                    <Button 
+                        title="Editar"
+                        color="green"
+                        onPress={() => {
+                            navigation.replace('SerieForm', { serieToEdit: serie });
+                        }} 
+                    />
+                </View>
+                <View style={styles.button}>
+                    <Button 
+                        title="Excluir"
+                        color="red"
+                        onPress={ async () => {
+                            const hasDeleted = await this.props.deleteSerie(serie)
+                            if(hasDeleted){
+                                navigation.goBack();
+                            }
+                        }} 
+                    />
+                </View>
+               
             </ScrollView>
         );
     }
@@ -37,8 +58,10 @@ class SerieDetailPage extends React.Component {
 const styles = StyleSheet.create({
     image:{
         aspectRatio: 1,
+    },
+    button: {
+        margin: 10,
     }
 });
 
-
-export default SerieDetailPage;
+export default connect(null, { deleteSerie })(SerieDetailPage);
