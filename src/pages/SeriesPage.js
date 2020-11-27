@@ -18,7 +18,12 @@ class SeriesPage extends React.Component {
     render() {
         const { series, navigation } = this.props;
         if(series === null){
-            return <ActivityIndicator/>
+            //console.log("series:", series);
+            //return <ActivityIndicator/>;
+            return <AddSerieCard 
+                        isFirstColumn={true}
+                        onNavigate={() => navigation.navigate('SerieForm')} 
+                    />
         }
         return (
             <View>

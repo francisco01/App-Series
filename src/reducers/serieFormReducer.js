@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     title: "",
     gender: "acao",
     rate: 0,
-    img: "",
+    img64: "",
     description: ""
 }
 

@@ -20,7 +20,7 @@ const AddSerieCard = ({ serie, isFirstColumn, onNavigate }) => (
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        //flex: 1,
         padding: 5,
         height: Dimensions.get('window').width / 2,
         aspectRatio: 1,
